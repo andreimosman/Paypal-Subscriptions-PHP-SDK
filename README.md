@@ -337,6 +337,9 @@ try {
 
 ```
 
-## TODO: Create a simple class to abstract all those details above.
+## TODO
+Create a simple class to abstract all those details above.
+Create a better doc
+
 
 
