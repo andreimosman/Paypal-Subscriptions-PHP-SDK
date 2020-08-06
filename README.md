@@ -5,9 +5,13 @@
 ## Prerequisites
 
 PHP 5.6 and above
-https://github.com/paypal/Checkout-PHP-SDK (composer require paypal/paypal-checkout-sdk)
+https://github.com/paypal/Checkout-PHP-SDK 
 
 An environment which supports TLS 1.2 (see the TLS-update site for more information)
+
+# Using Composer
+
+composer require andreimosman/paypal-subscriptions-sdk
 
 ## Usage
 Use PayPalCheckoutSdk as you normally do.
