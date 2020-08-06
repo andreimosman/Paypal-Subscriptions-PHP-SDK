@@ -2,8 +2,9 @@
     "name": "andreimosman/paypal-subscriptions-sdk",
     "type": "library",
     "description": "PHP SDK for PayPal's Subscriptions API",
-    "license": "https://github.com/andreimosman/Paypal-Subscriptions-PHP-SDK/blob/master/LICENCE",
     "keywords": ["paypal", "payments", "rest", "sdk", "catalog", "products"],
+    "license": "https://github.com/andreimosman/Paypal-Subscriptions-PHP-SDK/blob/master/LICENCE",
+    "homepage": "https://github.com/andreimosman/Paypal-Subscriptions-PHP-SDK",
     "require": {
         "paypal/paypal-checkout-sdk": "^1.0"
     },
