@@ -13,7 +13,126 @@ An environment which supports TLS 1.2 (see the TLS-update site for more informat
 
 composer require andreimosman/paypal-subscriptions-sdk
 
-## Usage
+## The SuperSimplePaypalAbstraction
+
+Currently it only abstracts products, plans and subscriptions functions. Sample code:
+
+```php
+require __DIR__ . '/vendor/autoload.php';
+
+use PayPalSubscriptionsSdk\SuperSimplePayPal;
+
+$clientId = "<<PAYPAL-CLIENT-ID>>";
+$clientSecret = "<<PAYPAL-CLIENT-SECRET>>";
+
+$environment = 'sandbox'; // Or production
+
+$payPal = new SuperSimplePayPal($clientId,$clientSecret, $environment);
+
+//
+// Sample codes:
+//
+
+$product = $payPal->createProduct("Another Jedi Product","DIGITAL","ONLINE_GAMING","Simple description");
+print_r($product);
+
+$productId = $product->id;
+
+$payPal->updateProduct($productId,"ONLINE_GAMING","What a nice product!","http://mysite.com/logo.png");
+
+$product = $payPal->getProduct($productId); // With full details
+print_r($product);
+
+$products = $paypal->listProducts(); // With less details
+print_r($products);
+
+
+// Create a monthly plan
+$plan = $payPal->createPlan($productId,"Jedi Master Plan","The best jedi plan on the market","9.98");
+print_r($plan);
+
+$planId = $plan->id;
+
+$payPal->updatePlan($planId,
+    "Another Description", // Description
+    true,   // Auto Bill Outstanding
+    false,  // Payment Failure Treshold
+);
+
+$plan = $payPal->getPlan($planId);
+print_r($plan);
+
+$payPal->updatePrice($planId,"11.9");
+
+$plans = $payPal->listPlans();
+print_r($plans);
+
+// also ...
+$payPal->deactivatePlan($planId);
+$payPal->activatePlan($planId);
+
+
+
+
+
+$applicationContext = [
+    "brand_name" => "My Super Company",
+    "return_url" => "http://mysite.com/itworked",
+    "cancel_url" => "http://mysql.com/cancel",
+];
+$subscription = $payPal->createSubscription($planId,$applicationContext);
+print_r($subscription);
+
+$subscriptionId = $subscriptionId;
+
+
+$applicationContext = [
+    "brand_name" => "Watta Brand",
+    "locale" => "en-US",
+    "shipping_preference" => "SET_PROVIDED_ADDRESS",
+    "payment_method" => [
+        "payer_selected" => "PAYPAL",
+        "payee_preferred" => "IMMEDIATE_PAYMENT_REQUIRED"
+    ],
+    "return_url" => "https://example.com/returnUrl",
+    "cancel_url" => "https://example.com/cancelUrl"
+];
+
+$shippingAmount = [
+    "currency_code" => "USD",
+    "value" => "10.00"
+];
+
+$shippingAddress = [
+    "name" => [
+        "full_name" => "John Doe"
+    ],
+    "address" => [
+        "address_line_1" => "2211 N First Street",
+        "address_line_2" => "Building 17",
+        "admin_area_2" => "San Jose",
+        "admin_area_1" => "CA",
+        "postal_code" => "95131",
+        "country_code" => "US"
+    ]
+];
+
+$payPal->updateQuantitiesInSubscription($subscriptionId,$planId,$applicationContext,$shippingAmount,$shippingAddress);
+
+$subscription = $payPal->getSubscription($subscriptionId);
+print_r($subscription);
+
+// ... and also ...
+$payPal->captureAuthorizedPaymentOnSubscription();
+$payPal->activateSubscription($subscriptionId);
+$payPal->cancelSubscription($subscriptionId);
+$payPal->suspendSubscription($subscriptionId);
+
+
+```
+
+
+## Using the same way as PayPalCheckoutSdk
 Use PayPalCheckoutSdk as you normally do.
 
 
@@ -342,8 +461,6 @@ try {
 ```
 
 ## TODO
-Create a simple class to abstract all those details above.
+Add order and payment abstraction to SuperSimplePaypal.
 Create a better doc
-
-
 
