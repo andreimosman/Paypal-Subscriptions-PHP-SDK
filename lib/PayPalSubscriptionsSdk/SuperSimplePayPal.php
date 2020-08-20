@@ -48,7 +48,7 @@ class SuperSimplePayPal {
     }
 
     public function create(HttpRequest $request,$data) {
-        if( $request instanceof PayPalSubscriptionsSdk\Core\HttpRequest ) {
+        if( method_exists($request,'setData') ) {
             $request->setData($data);
         } else {
             // it's PayPalHttp\HttpRequest
@@ -112,10 +112,11 @@ class SuperSimplePayPal {
         $data = [
             "product_id" => $productId,
             "name" => $name,
-            "description" => $description,
             "status" => $status,
             "billing_cycles" => $billingCycles
         ];
+
+        if( $description ) $data["description"] = $description;
 
         if( $paymentPreferences ) $data["payment_preferences"] = $paymentPreferences;
         if( $taxes ) $data["taxes"] = $taxes;
@@ -150,7 +151,7 @@ class SuperSimplePayPal {
             "auto_bill_outstanding" => true,
         ];
 
-        if( $totalCycles ) $billingCycles["total_cycles"] = $totalCycles;
+        if( $totalCycles ) $billingCycles[0]["total_cycles"] = $totalCycles;
 
         return($this->createPlanWithDetailedBillingCyclesAndPreferences($productId,$name,$description,$billingCycles,$status,$paymentPreferences));
 
