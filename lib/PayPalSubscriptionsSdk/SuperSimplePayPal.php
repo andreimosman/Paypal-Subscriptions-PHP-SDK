@@ -5,7 +5,7 @@ namespace PayPalSubscriptionsSdk;
 use PayPalHttp\HttpRequest;
 
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
-use PayPalCheckoutSdk\Core\PayPalEnvironment;   // Production
+use PayPalCheckoutSdk\Core\ProductionEnvironment;   // Production
 use PayPalCheckoutSdk\Core\SandboxEnvironment;  // Sandbox
 
 use PayPalSubscriptionsSdk\Core\HttpUpdateRequest;
@@ -37,7 +37,7 @@ class SuperSimplePayPal {
     protected $client;
 
     function __construct($clientId,$clientSecret,$environment='sandbox') {
-        $environmentClass = "\\PayPalCheckoutSdk\\Core\\".($environment == 'production' ? 'PayPalEnvironment' : 'SandboxEnvironment');
+        $environmentClass = "\\PayPalCheckoutSdk\\Core\\".($environment == 'production' ? 'ProductionEnvironment' : 'SandboxEnvironment');
         $this->client = new PayPalHttpClient(new $environmentClass($clientId,$clientSecret));
     }
 
