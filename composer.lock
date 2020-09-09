@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a18ca45ec68842e3b98fddf2286c729",
+    "content-hash": "f6d9290f36f306879ebb9b58d775dfd2",
     "packages": [
         {
             "name": "paypal/paypal-checkout-sdk",

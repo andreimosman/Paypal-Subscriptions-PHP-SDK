@@ -15,6 +15,9 @@
         }
     ],
     "autoload": {
+        "psr-0": {
+            "PayPalSubscriptionsSdk": "lib/"
+        },
         "psr-4": {
             "PayPalSubscriptionsSdk\\": "lib/PayPalSubscriptionsSdk"
         }
