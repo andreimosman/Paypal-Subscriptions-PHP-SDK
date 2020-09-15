@@ -265,5 +265,10 @@ class SuperSimplePayPal {
         return($this->getResult(new SubscriptionsSuspendRequest($id)));
     }
 
+    public function listSubscriptionTransactions($id,$startTime="2000-01-01T00:00:00.000Z",$endTime=null) {
+        if(!$endTime) $endTime=date("Y-m-d")."T23:59:59.999Z";
+        return($this->getResult(new SubscriptionsListTransactionsRequest($id,$startTime,$endTime)));
+    }
+
 
 }
